@@ -140,117 +140,112 @@ Before proceeding, be sure to connect your Flipper Zero to your computer. Close 
 
 ### Official firmware
 
-    ```bash
-    mkdir \repos
-    cd \repos
-    git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git flipperzero-firmware
-    git clone https://github.com/jamisonderek/flipper-zero-input.git
-    cd flipperzero-firmware
-    git pull
-    git checkout "1.1.2"
-    cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\ofw-1.1.2\applications\*.* . /e /y
-    cd ..
-    fbt vscode_dist
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
-    git stash push -u
-    git checkout "dev"
-    git stash pop
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
-    ```
+```bash
+mkdir \repos
+cd \repos
+git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git flipperzero-firmware
+git clone https://github.com/jamisonderek/flipper-zero-input.git
+cd flipperzero-firmware
+git pull
+git checkout "1.1.2"
+cd applications
+xcopy ..\..\flipper-zero-input\firmware-overlay\ofw-1.1.2\applications\*.* . /e /y
+cd ..
+fbt vscode_dist
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+git stash push -u
+git checkout "dev"
+git stash pop
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+```
 
 ### Momentum firmware
 
-    ```bash
-    mkdir \repos
-    cd \repos
-    git clone --recursive https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
-    git clone https://github.com/jamisonderek/flipper-zero-input.git
-    cd flipperzero-firmware
-    git pull
-    git checkout "mntm-008"
-    cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\mntm-008\applications\*.* . /e /y
-    cd ..
-    fbt vscode_dist
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
-    git stash push -u
-    git checkout "dev"
-    git stash pop
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
-    ```
+```bash
+mkdir \repos
+cd \repos
+git clone --recursive https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
+git clone https://github.com/jamisonderek/flipper-zero-input.git
+cd flipperzero-firmware
+git pull
+git checkout "mntm-008"
+cd applications
+xcopy ..\..\flipper-zero-input\firmware-overlay\mntm-008\applications\*.* . /e /y
+cd ..
+fbt vscode_dist
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+git stash push -u
+git checkout "dev"
+git stash pop
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+```
 
 ### Unleashed firmware
 
-    ```bash
-    mkdir \repos
-    cd \repos
-    git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
-    cd flipperzero-firmware
-    git pull
-    git checkout "unlshd-079"
-    cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e /y
-    cd ..
-    fbt vscode_dist
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
-    git stash push -u
-    git checkout "dev"
-    git stash pop
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
-    ```
+```bash
+mkdir \repos
+cd \repos
+git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
+cd flipperzero-firmware
+git pull
+git checkout "unlshd-079"
+cd applications
+xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e /y
+cd ..
+fbt vscode_dist
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+git stash push -u
+git checkout "dev"
+git stash pop
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+```
 
 ### RogueMaster firmware
 
-    ```bash
-    mkdir \repos
-    cd \repos
-    git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
-    git clone https://github.com/jamisonderek/flipper-zero-input.git
-    cd flipperzero-firmware
-    git pull
-    git checkout "RM1202-0837-0.420.0-6d10bad"
-    cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\rm1202-0837-0.420.0-6d10bad\applications\*.* . /e /y
-    cd ..
-    git stash push -u
-    git checkout "dev"
-    git stash pop
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full                
-    ```
+```bash
+mkdir \repos
+cd \repos
+git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
+git clone https://github.com/jamisonderek/flipper-zero-input.git
+cd flipperzero-firmware
+git pull
+git checkout "RM1202-0837-0.420.0-6d10bad"
+cd applications
+xcopy ..\..\flipper-zero-input\firmware-overlay\rm1202-0837-0.420.0-6d10bad\applications\*.* . /e /y
+cd ..
+git stash push -u
+git checkout "dev"
+git stash pop
+fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full                
+```
 
 ### Using non-dev branches or tags
 NOTE: instead of `git checkout "dev"` you can replace `"dev"` with the branch or tag of the firmware you would like to use. The following branches and tags are available:
 
-    Official firmware:
-    - `dev`
-    - `release`
-    - [tags](https://github.com/flipperdevices/flipperzero-firmware/tags), like `1.1.2`
+Official firmware:
+- `dev`
+- `release`
+- [tags](https://github.com/flipperdevices/flipperzero-firmware/tags), like `1.1.2`
     
-    Momentum firmware:
+Momentum firmware:
 
-    - `dev`
-    - `release`
-    - [tags](https://github.com/Next-Flip/Momentum-Firmware/tags), like `mntm-008`
+- `dev`
+- `release`
+- [tags](https://github.com/Next-Flip/Momentum-Firmware/tags), like `mntm-008`
 
-    Unleashed firmware:
-    - `dev`
-    - `release`
-    - [tags](https://github.com/DarkFlippers/unleashed-firmware/tags), like `unlshd-079`
+Unleashed firmware:
+- `dev`
+- `release`
+- [tags](https://github.com/DarkFlippers/unleashed-firmware/tags), like `unlshd-079`
 
-    RogueMaster firmware:
-    - `420`
-    - [tags](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tags), like `RM1202-0837-0.420.0-6d10bad`
+RogueMaster firmware:
+- `420`
+- [tags](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tags), like `RM1202-0837-0.420.0-6d10bad`
 
 
 ### Notes about the above scripts
 
 - You can replace `\repros` with any directory you would like to use.
-
-    ```bash
-    mkdir \repos
-    cd \repos
-    ```
 
 - We recursively clone the firmware repo into a folder named `flipperzero-firmware`. You can choose a different name if you would like, but be sure to also update the other commands to use the new name.
 
