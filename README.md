@@ -21,7 +21,7 @@ This project aims to provide an alternative input method for the Flipper Zero. T
 
 ## Firmware Installation
 
-The following steps will guide you through the process of installing the latest version of the firmware on your Flipper Zero. This process requires you to build the firmware from source. If you would like to install a prebuilt version of the firmware, please follow the instructions in the [Quick Installation](#quick-installation) section above.
+The following steps will guide you through the process of installing the latest version of the firmware on your Flipper Zero.
 
 Install prerequisites before proceeding:
 
