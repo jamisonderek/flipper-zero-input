@@ -135,7 +135,7 @@ Directions:
 
     ```bash
     cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\ofw-1.1.2\applications\*.* . /e
+    xcopy ..\..\flipper-zero-input\firmware-overlay\ofw-1.1.2\applications\*.* . /e /y
     cd ..
     ```
 
@@ -143,7 +143,7 @@ Directions:
 
     ```bash
     cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\mntm-008\applications\*.* . /e
+    xcopy ..\..\flipper-zero-input\firmware-overlay\mntm-008\applications\*.* . /e /y
     cd ..
     ```
 
@@ -151,7 +151,7 @@ Directions:
 
     ```bash
     cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e
+    xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e /y
     cd ..
     ```
 
@@ -159,7 +159,7 @@ Directions:
 
     ```bash
     cd applications
-    xcopy ..\..\flipper-zero-input\firmware-overlay\rm1202-0837-0.420.0-6d10bad\applications\*.* . /e
+    xcopy ..\..\flipper-zero-input\firmware-overlay\rm1202-0837-0.420.0-6d10bad\applications\*.* . /e /y
     cd ..
     ```
 
