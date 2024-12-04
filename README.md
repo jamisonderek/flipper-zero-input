@@ -10,7 +10,7 @@ This project aims to provide an alternative input method for the Flipper Zero. T
 
 - Installing firmware with Chatpad and Mobile input support
   
-   - [Quick Installation](#quick-installation)
+   - [Firmware Quick Installation](#firmware-quick-installation)
 
       **OR**
    - [Firmware Overlay Installation](#firmware-overlay-installation)
