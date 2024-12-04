@@ -151,11 +151,10 @@ git checkout "1.1.2"
 cd applications
 xcopy ..\..\flipper-zero-input\firmware-overlay\ofw-1.1.2\applications\*.* . /e /y
 cd ..
-fbt vscode_dist
-fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 git stash push -u
 git checkout "dev"
 git stash pop
+fbt vscode_dist
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 
 ```
@@ -173,11 +172,10 @@ git checkout "mntm-008"
 cd applications
 xcopy ..\..\flipper-zero-input\firmware-overlay\mntm-008\applications\*.* . /e /y
 cd ..
-fbt vscode_dist
-fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 git stash push -u
 git checkout "dev"
 git stash pop
+fbt vscode_dist
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 
 ```
@@ -194,11 +192,10 @@ git checkout "unlshd-079"
 cd applications
 xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e /y
 cd ..
-fbt vscode_dist
-fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 git stash push -u
 git checkout "dev"
 git stash pop
+fbt vscode_dist
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 
 ```
@@ -219,6 +216,7 @@ cd ..
 git stash push -u
 git checkout "dev"
 git stash pop
+fbt vscode_dist
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full                
 
 ```
