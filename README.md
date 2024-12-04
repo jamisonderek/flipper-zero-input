@@ -157,6 +157,7 @@ git stash push -u
 git checkout "dev"
 git stash pop
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+
 ```
 
 ### Momentum firmware
@@ -178,6 +179,7 @@ git stash push -u
 git checkout "dev"
 git stash pop
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+
 ```
 
 ### Unleashed firmware
@@ -198,6 +200,7 @@ git stash push -u
 git checkout "dev"
 git stash pop
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+
 ```
 
 ### RogueMaster firmware
@@ -217,6 +220,7 @@ git stash push -u
 git checkout "dev"
 git stash pop
 fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full                
+
 ```
 
 ### Using non-dev branches or tags
