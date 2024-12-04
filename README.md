@@ -29,10 +29,8 @@ The following steps will allow you to quickly test the Chatpad and Mobile input 
 
 1. Download the prebuilt package for your Flipper Zero (NOTE: these firmware packages are modified versions of the official that include Chatpad and Mobile input support)
 
-    - [Official firmware v1.1.2 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/blob/main/prebuilt/flipper-official-1.1.2.tgz)
-    - [Momentum firmware v008 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/blob/main/prebuilt/flipper-mntm-008.tgz)
-    - [Unleashed firmware v079 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/blob/main/prebuilt/flipper-unlshd-079.tgz)
-    - [RogueMaster firmware - modified with Chatpad and Mobile input support](#)
+    - [Official firmware v1.1.2 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/raw/refs/heads/main/prebuilt/flipper-official-1.1.2.tgz)
+    - [Momentum firmware v008 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/raw/refs/heads/main/prebuilt/flipper-mntm-008.tgz)
 
 2. Install the firmware package on your Flipper Zero
 
