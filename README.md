@@ -107,7 +107,7 @@ Connect the adapter to the Chatpad PCB:
 
 ## Chatpad Setup
 
-Once you have installed the firmware using the [Quick Installation](#quick-installation) or [Firmware Overlay Installation](#firmware-overlay-installation) steps, you can connect the Chatpad to the Flipper Zero. Every time you restart the Flipper Zero you will need to reconnect the Chatpad.
+Once you have installed the firmware using the [Quick Installation](#quick-installation) or [Firmware Overlay Installation](#firmware-overlay-installation) steps, you can connect the Chatpad to the Flipper Zero. **Every time you restart the Flipper Zero you will need to reconnect the Chatpad.**
 
 1. Connect the Chatpad to the Flipper Zero (Flipper GPIO pins 9, 15, 16, 18 -- see [Chatpad Hardware](#chatpad-hardware) for more details).
 2. Turn on the Flipper Zero.
