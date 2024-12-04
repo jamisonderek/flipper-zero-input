@@ -8,9 +8,16 @@ Alternative input for the Flipper Zero
 
 This project aims to provide an alternative input method for the Flipper Zero. The Flipper Zero is a multi-tool device that can be used for a variety of tasks, such as hacking, pentesting, and hardware hacking. However, the default input method for the Flipper Zero is limited to using the D-Pad for input. This often results in people typing short names for their files, like `liv.sub` instead of a descriptive name like `living room light.sub`.  This project aims to expand the input capabilities of the Flipper Zero by adding support for external input devices, such as the Chatpad and Mobile phone input devices.
 
-## Quick Installation
+- Installing firmware with Chatpad and Mobile input support
+  - [Quick Installation](#quick-installation)
+  - or [Firmware Overlay Installation](#firmware-overlay-installation)
 
-The following steps will allow you to quickly test the Chatpad and Mobile input features on **your** Flipper Zero. However, these prebuilt versions of the firmware may not be the latest version available. If you would like to install the latest version of the firmware, please follow the instructions in the [Overlay Installation](#overlay-installation) section below.
+- Bluetooth Phone
+  - [Bluetooth Setup](#bluetooth-setup)
+
+## Firmware Quick Installation
+
+The following steps will allow you to quickly test the Chatpad and Mobile input features on **your** Flipper Zero. However, these prebuilt versions of the firmware may not be the latest version available. If you would like to install the latest version of the firmware, please follow the instructions in the [Firmware Overlay Installation](#firmware-overlay-installation) section below.
 
 1. Download the prebuilt package for your Flipper Zero (NOTE: these firmware packages are modified versions of the official that include Chatpad and Mobile input support)
 
@@ -29,8 +36,37 @@ The following steps will allow you to quickly test the Chatpad and Mobile input 
 
 3. Your Flipper Zero will be updated with the new firmware.
 
+## Bluetooth Setup
 
-## Overlay Installation
+The easiest way to input text on the Flipper Zero is to use a Bluetooth on your phone. This requires that you are running the [Flipper Zero mobile app](https://docs.flipper.net/mobile-app) and have paired it with your Flipper Zero. 
+
+NOTE: if you switched firmware the pairing may be lost, so you may need to forget the device and add it again.
+
+Once you have the mobile app working, the following steps will send text to the text input to the Flipper Zero.
+1. Open the mobile app and connect to your Flipper Zero.
+2. Click on the "Options" button (it's on the first tab).
+3. Click on the "File Manager" button.
+4. You should be on the SD card folder (if not, click on the `/ext` folder).
+5. If this is your first time using the app:
+
+   - Click on the "+" button in the top right.
+   - Then click on the "New File" button.
+   - Then name the file `input-line.txt`
+
+6. Open the "input-line.txt" file
+7. Type a line of text you would like to send to the Flipper Zero.
+8. On your Flipper make sure you are in the text input screen.
+9. Click on the "Save" (or checkmark) button in the top right.
+10. The text will be sent to the Flipper Zero and you should see it in the text input!
+   
+   - On iOS you will still be in the "input-line.txt" file, so you can edit the text and click "Save" again to send the new text to the Flipper Zero.
+   - On Android you will need to click on the "input-line.txt" file again, choose "Edit", and then click "Save" to send the new text to the Flipper Zero.
+
+In the future, it would be great to have a more seamless integration with the Flipper Zero mobile app. You can find the existing apps here:
+  - [https://github.com/flipperdevices/Flipper-Android-App](https://github.com/flipperdevices/Flipper-Android-App)
+  - [https://github.com/flipperdevices/Flipper-iOS-App](https://github.com/flipperdevices/Flipper-Android-App)
+
+## Firmware Overlay Installation
 
 The following steps will guide you through the process of installing the latest version of the firmware on your Flipper Zero. This process requires you to build the firmware from source. If you would like to install a prebuilt version of the firmware, please follow the instructions in the [Quick Installation](#quick-installation) section above.
 
