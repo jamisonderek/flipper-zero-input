@@ -9,11 +9,7 @@ Alternative input for the Flipper Zero
 This project aims to provide an alternative input method for the Flipper Zero. The Flipper Zero is a multi-tool device that can be used for a variety of tasks, such as hacking, pentesting, and hardware hacking. However, the default input method for the Flipper Zero is limited to using the D-Pad for input. This often results in people typing short names for their files, like `liv.sub` instead of a descriptive name like `living room light.sub`.  This project aims to expand the input capabilities of the Flipper Zero by adding support for external input devices, such as the Chatpad and Mobile phone input devices.
 
 - Installing firmware with Chatpad and Mobile input support
-  
-   - [Firmware Quick Installation](#firmware-quick-installation)
-
-      **OR**
-   - [Firmware Overlay Installation](#firmware-overlay-installation)
+  - [Firmware Installation](#firmware-installation)
 
 - Bluetooth Phone
   - [Bluetooth Setup](#bluetooth-setup)
@@ -23,107 +19,7 @@ This project aims to provide an alternative input method for the Flipper Zero. T
   - [Chatpad Setup](#chatpad-setup)
 
 
-## Firmware Quick Installation
-
-The following steps will allow you to quickly test the Chatpad and Mobile input features on **your** Flipper Zero. However, these prebuilt versions of the firmware may not be the latest version available. If you would like to install the latest version of the firmware, please follow the instructions in the [Firmware Overlay Installation](#firmware-overlay-installation) section below.
-
-1. Download the prebuilt package for your Flipper Zero (NOTE: these firmware packages are modified versions of the official that include Chatpad and Mobile input support)
-
-    - [Official firmware v1.1.2 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/raw/refs/heads/main/prebuilt/flipper-official-1.1.2.tgz)
-    - [Momentum firmware v008 - modified with Chatpad and Mobile input support](https://github.com/jamisonderek/flipper-zero-input/raw/refs/heads/main/prebuilt/flipper-mntm-008.tgz)
-
-2. Install the firmware package on your Flipper Zero
-
-    - Connect your Flipper Zero to your computer via USB
-    - Open qFlipper
-    - Click on the "Install from File" link (bottom right corner)
-    - Select the downloaded firmware package from step 1
-    - Click "Open" and then "Install"
-
-3. Your Flipper Zero will be updated with the new firmware.
-
-## Bluetooth Setup
-
-The easiest way to input text on the Flipper Zero is to use a Bluetooth on your phone. This requires that you are running the [Flipper Zero mobile app](https://docs.flipper.net/mobile-app) and have paired it with your Flipper Zero. 
-
-NOTE: if you switched firmware the pairing may be lost, so you may need to forget the device and add it again.
-
-Once you have the mobile app working, the following steps will send text to the text input to the Flipper Zero.
-1. Open the mobile app and connect to your Flipper Zero.
-2. Click on the "Options" button (it's on the first tab).
-3. Click on the "File Manager" button.
-4. You should be on the SD card folder (if not, click on the `/ext` folder).
-5. If this is your first time using the app:
-
-   - Click on the "+" button in the top right.
-   - Then click on the "New File" button.
-   - Then name the file `input-line.txt`
-
-6. Open the "input-line.txt" file
-7. Type a line of text you would like to send to the Flipper Zero.
-8. On your Flipper make sure you are in the text input screen.
-9. Click on the "Save" (or checkmark) button in the top right.
-10. The text will be sent to the Flipper Zero and you should see it in the text input!
-   
-   - On iOS you will still be in the "input-line.txt" file, so you can edit the text and click "Save" again to send the new text to the Flipper Zero.
-   - On Android you will need to click on the "input-line.txt" file again, choose "Edit", and then click "Save" to send the new text to the Flipper Zero.
-
-In the future, it would be great to have a more seamless integration with the Flipper Zero mobile app. You can find the existing apps here:
-   - [https://github.com/flipperdevices/Flipper-Android-App](https://github.com/flipperdevices/Flipper-Android-App)
-   - [https://github.com/flipperdevices/Flipper-iOS-App](https://github.com/flipperdevices/Flipper-Android-App)
-
-## Chatpad Hardware
-
-![Chatpad wiring](chatpad_wiring.png)
-
-The Xbox 360 Chatpad is a small keyboard that was originally designed for the Xbox 360. You can still find them on eBay for around $15USD. The model I used was **X814365-001**, which is a wired keypad.
-
-To take it apart you will need:
-   - T6 screwdriver
-   - A small phillips screwdriver
-   - Something to pry the case apart (I used a small fork)
-
-I ordered a separate 7-pin, 1.25mm to Dupont 2.54mm adapter from Amazon. This allows me to connect the Chatpad to the Flipper Zero. You could also cut the existing cable and solder the wires to the Flipper Zero, but I wanted to keep the Chatpad intact. The adapter I used was the following:
-   - [7-pin, 1.25mm to Dupont 2.54mm adapter](https://www.amazon.com/gp/product/B07PWZTC88)
-
-To take the Chatpad apart, follow these steps:
-   - Remove the four T6 screws on the back of the Chatpad.
-   - Carefully pry the case apart.
-   - Remove the ribbon cable from the PCB.
-   - Remove the 5 tiny phillips screws holding the PCB in place.
-   - Carefully remove the PCB from the case.
-
-Connect the adapter to the Chatpad PCB:
-   - Connect the 7-pin, 1.25mm connector to the Chatpad PCB.
-   - Connect the Dupont 2.54mm connector to the Flipper Zero.
-   - Pin 1 on the Chatpad has a little triangle on the PCB.
-   - Connect Pin 1 on the Chatpad to Pin 9 `3V3` on the Flipper Zero.
-   - Connect Pin 2 on the Chatpad to Pin 15 `C1` on the Flipper Zero.
-   - Connect Pin 3 on the Chatpad to Pin 16 `C2` on the Flipper Zero.
-   - Connect Pin 4 on the Chatpad to Pin 18 `GND` on the Flipper Zero.
-   - Pins 5, 6, and 7 on the Chatpad are not used (they are for audio).
-
-## Chatpad Setup
-
-Once you have installed the firmware using the [Quick Installation](#quick-installation) or [Firmware Overlay Installation](#firmware-overlay-installation) steps, you can connect the Chatpad to the Flipper Zero. **Every time you restart the Flipper Zero you will need to reconnect the Chatpad.**
-
-1. Connect the Chatpad to the Flipper Zero (Flipper GPIO pins 9, 15, 16, 18 -- see [Chatpad Hardware](#chatpad-hardware) for more details).
-2. Turn on the Flipper Zero.
-3. Click "OK" and then select the "Settings" option.
-4. Select the "Chatpad" option.
-5. Click on the "Chatpad" menu item. Click "OK" to turn on the chatpad.
-6. You should see "Chatpad is ON" and then "Chatpad is READY".
-7. Press a key on the Chatpad and you should see the key pressed on the Flipper Zero screen.
-
-You can set Macros in the Chatpad Config.
-
-1. Choose "Config" from the Chatpad menu.
-2. For the "Macro" option, choose the letter you would like to assign a macro to.
-3. Click "OK" and then type the text you would like to assign to the macro. (You can use the Chatpad to type the text.)
-4. Cick "Save"
-5. To use the macro, hold the "People" key (next to the green button on the chatpad) and then press the letter you assigned the macro to.
-
-## Firmware Overlay Installation
+## Firmware Installation
 
 The following steps will guide you through the process of installing the latest version of the firmware on your Flipper Zero. This process requires you to build the firmware from source. If you would like to install a prebuilt version of the firmware, please follow the instructions in the [Quick Installation](#quick-installation) section above.
 
@@ -260,3 +156,85 @@ RogueMaster firmware:
 - The overlays are slightly different between firmware, since they have different text_input.c implementations (everyone has a slightly different keyboard implementation).
 
 - Once we apply the overlay, we use `git stash push -u` to stash away our edits. We then checkout the new version of firmware and use `git stash pop` to apply our edits in the new code. This assumes that the two versions of the firmware are compatible with the changes we made. If they are not, you will need to manually apply the changes to the new firmware.
+
+## Bluetooth Setup
+
+The easiest way to input text on the Flipper Zero is to use a Bluetooth on your phone. This requires that you are running the [Flipper Zero mobile app](https://docs.flipper.net/mobile-app) and have paired it with your Flipper Zero. 
+
+NOTE: if you switched firmware the pairing may be lost, so you may need to forget the device and add it again.
+
+Once you have the mobile app working, the following steps will send text to the text input to the Flipper Zero.
+1. Open the mobile app and connect to your Flipper Zero.
+2. Click on the "Options" button (it's on the first tab).
+3. Click on the "File Manager" button.
+4. You should be on the SD card folder (if not, click on the `/ext` folder).
+5. If this is your first time using the app:
+
+   - Click on the "+" button in the top right.
+   - Then click on the "New File" button.
+   - Then name the file `input-line.txt`
+
+6. Open the "input-line.txt" file
+7. Type a line of text you would like to send to the Flipper Zero.
+8. On your Flipper make sure you are in the text input screen.
+9. Click on the "Save" (or checkmark) button in the top right.
+10. The text will be sent to the Flipper Zero and you should see it in the text input!
+   
+   - On iOS you will still be in the "input-line.txt" file, so you can edit the text and click "Save" again to send the new text to the Flipper Zero.
+   - On Android you will need to click on the "input-line.txt" file again, choose "Edit", and then click "Save" to send the new text to the Flipper Zero.
+
+In the future, it would be great to have a more seamless integration with the Flipper Zero mobile app. You can find the existing apps here:
+   - [https://github.com/flipperdevices/Flipper-Android-App](https://github.com/flipperdevices/Flipper-Android-App)
+   - [https://github.com/flipperdevices/Flipper-iOS-App](https://github.com/flipperdevices/Flipper-Android-App)
+
+## Chatpad Hardware
+
+![Chatpad wiring](chatpad_wiring.png)
+
+The Xbox 360 Chatpad is a small keyboard that was originally designed for the Xbox 360. You can still find them on eBay for around $15USD. The model I used was **X814365-001**, which is a wired keypad.
+
+To take it apart you will need:
+   - T6 screwdriver
+   - A small phillips screwdriver
+   - Something to pry the case apart (I used a small fork)
+
+I ordered a separate 7-pin, 1.25mm to Dupont 2.54mm adapter from Amazon. This allows me to connect the Chatpad to the Flipper Zero. You could also cut the existing cable and solder the wires to the Flipper Zero, but I wanted to keep the Chatpad intact. The adapter I used was the following:
+   - [7-pin, 1.25mm to Dupont 2.54mm adapter](https://www.amazon.com/gp/product/B07PWZTC88)
+
+To take the Chatpad apart, follow these steps:
+   - Remove the four T6 screws on the back of the Chatpad.
+   - Carefully pry the case apart.
+   - Remove the ribbon cable from the PCB.
+   - Remove the 5 tiny phillips screws holding the PCB in place.
+   - Carefully remove the PCB from the case.
+
+Connect the adapter to the Chatpad PCB:
+   - Connect the 7-pin, 1.25mm connector to the Chatpad PCB.
+   - Connect the Dupont 2.54mm connector to the Flipper Zero.
+   - Pin 1 on the Chatpad has a little triangle on the PCB.
+   - Connect Pin 1 on the Chatpad to Pin 9 `3V3` on the Flipper Zero.
+   - Connect Pin 2 on the Chatpad to Pin 15 `C1` on the Flipper Zero.
+   - Connect Pin 3 on the Chatpad to Pin 16 `C2` on the Flipper Zero.
+   - Connect Pin 4 on the Chatpad to Pin 18 `GND` on the Flipper Zero.
+   - Pins 5, 6, and 7 on the Chatpad are not used (they are for audio).
+
+## Chatpad Setup
+
+Once you have installed the firmware using the [Quick Installation](#quick-installation) or [Firmware Overlay Installation](#firmware-overlay-installation) steps, you can connect the Chatpad to the Flipper Zero. **Every time you restart the Flipper Zero you will need to reconnect the Chatpad.**
+
+1. Connect the Chatpad to the Flipper Zero (Flipper GPIO pins 9, 15, 16, 18 -- see [Chatpad Hardware](#chatpad-hardware) for more details).
+2. Turn on the Flipper Zero.
+3. Click "OK" and then select the "Settings" option.
+4. Select the "Chatpad" option.
+5. Click on the "Chatpad" menu item. Click "OK" to turn on the chatpad.
+6. You should see "Chatpad is ON" and then "Chatpad is READY".
+7. Press a key on the Chatpad and you should see the key pressed on the Flipper Zero screen.
+
+You can set Macros in the Chatpad Config.
+
+1. Choose "Config" from the Chatpad menu.
+2. For the "Macro" option, choose the letter you would like to assign a macro to.
+3. Click "OK" and then type the text you would like to assign to the macro. (You can use the Chatpad to type the text.)
+4. Cick "Save"
+5. To use the macro, hold the "People" key (next to the green button on the chatpad) and then press the letter you assigned the macro to.
+
