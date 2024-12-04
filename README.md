@@ -9,11 +9,18 @@ Alternative input for the Flipper Zero
 This project aims to provide an alternative input method for the Flipper Zero. The Flipper Zero is a multi-tool device that can be used for a variety of tasks, such as hacking, pentesting, and hardware hacking. However, the default input method for the Flipper Zero is limited to using the D-Pad for input. This often results in people typing short names for their files, like `liv.sub` instead of a descriptive name like `living room light.sub`.  This project aims to expand the input capabilities of the Flipper Zero by adding support for external input devices, such as the Chatpad and Mobile phone input devices.
 
 - Installing firmware with Chatpad and Mobile input support
-  - [Quick Installation](#quick-installation)
-  - or [Firmware Overlay Installation](#firmware-overlay-installation)
+  
+   - [Quick Installation](#quick-installation)
+
+      **OR**
+   - [Firmware Overlay Installation](#firmware-overlay-installation)
 
 - Bluetooth Phone
   - [Bluetooth Setup](#bluetooth-setup)
+
+- Chatpad
+  - [Chatpad Hardware](#chatpad-hardware)
+
 
 ## Firmware Quick Installation
 
@@ -63,8 +70,39 @@ Once you have the mobile app working, the following steps will send text to the 
    - On Android you will need to click on the "input-line.txt" file again, choose "Edit", and then click "Save" to send the new text to the Flipper Zero.
 
 In the future, it would be great to have a more seamless integration with the Flipper Zero mobile app. You can find the existing apps here:
-  - [https://github.com/flipperdevices/Flipper-Android-App](https://github.com/flipperdevices/Flipper-Android-App)
-  - [https://github.com/flipperdevices/Flipper-iOS-App](https://github.com/flipperdevices/Flipper-Android-App)
+   - [https://github.com/flipperdevices/Flipper-Android-App](https://github.com/flipperdevices/Flipper-Android-App)
+   - [https://github.com/flipperdevices/Flipper-iOS-App](https://github.com/flipperdevices/Flipper-Android-App)
+
+## Chatpad Hardware
+
+![Chatpad wiring](chatpad_wiring.png)
+
+The Xbox 360 Chatpad is a small keyboard that was originally designed for the Xbox 360. You can still find them on eBay for around $15USD. The model I used was **X814365-001**, which is a wired keypad.
+
+To take it apart you will need:
+   - T6 screwdriver
+   - A small phillips screwdriver
+   - Something to pry the case apart (I used a small fork)
+
+I ordered a separate 7-pin, 1.25mm to Dupont 2.54mm adapter from Amazon. This allows me to connect the Chatpad to the Flipper Zero. You could also cut the existing cable and solder the wires to the Flipper Zero, but I wanted to keep the Chatpad intact. The adapter I used was the following:
+   - [7-pin, 1.25mm to Dupont 2.54mm adapter](https://www.amazon.com/gp/product/B07PWZTC88)
+
+To take the Chatpad apart, follow these steps:
+   - Remove the four T6 screws on the back of the Chatpad.
+   - Carefully pry the case apart.
+   - Remove the ribbon cable from the PCB.
+   - Remove the 5 tiny phillips screws holding the PCB in place.
+   - Carefully remove the PCB from the case.
+
+Connect the adapter to the Chatpad PCB:
+   - Connect the 7-pin, 1.25mm connector to the Chatpad PCB.
+   - Connect the Dupont 2.54mm connector to the Flipper Zero.
+   - Pin 1 on the Chatpad has a little triangle on the PCB.
+   - Connect Pin 1 on the Chatpad to Pin 9 `3V3` on the Flipper Zero.
+   - Connect Pin 2 on the Chatpad to Pin 15 `C1` on the Flipper Zero.
+   - Connect Pin 3 on the Chatpad to Pin 17 `C2` on the Flipper Zero.
+   - Connect Pin 4 on the Chatpad to Pin 18 `GND` on the Flipper Zero.
+   - Pins 5, 6, and 7 on the Chatpad are not used (they are for audio).
 
 ## Firmware Overlay Installation
 
