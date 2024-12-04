@@ -143,7 +143,8 @@ Before proceeding, be sure to connect your Flipper Zero to your computer. Close 
 ```bash
 mkdir \repos
 cd \repos
-git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git flipperzero-firmware
+rd /s /q flipperzero-firmware 2>nul
+git clone --recursive -j 8 https://github.com/flipperdevices/flipperzero-firmware.git flipperzero-firmware
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
@@ -164,7 +165,8 @@ fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 ```bash
 mkdir \repos
 cd \repos
-git clone --recursive https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
+rd /s /q flipperzero-firmware 2>nul
+git clone --recursive -j 8 https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
@@ -185,7 +187,8 @@ fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 ```bash
 mkdir \repos
 cd \repos
-git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
+rd /s /q flipperzero-firmware 2>nul
+git clone --recursive -j 8 https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
 cd flipperzero-firmware
 git pull
 git checkout "unlshd-079"
@@ -205,7 +208,8 @@ fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 ```bash
 mkdir \repos
 cd \repos
-git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
+rd /s /q flipperzero-firmware 2>nul
+git clone --recursive -j 8 https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
