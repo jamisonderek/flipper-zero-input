@@ -20,6 +20,7 @@ This project aims to provide an alternative input method for the Flipper Zero. T
 
 - Chatpad
   - [Chatpad Hardware](#chatpad-hardware)
+  - [Chatpad Setup](#chatpad-setup)
 
 
 ## Firmware Quick Installation
@@ -100,9 +101,29 @@ Connect the adapter to the Chatpad PCB:
    - Pin 1 on the Chatpad has a little triangle on the PCB.
    - Connect Pin 1 on the Chatpad to Pin 9 `3V3` on the Flipper Zero.
    - Connect Pin 2 on the Chatpad to Pin 15 `C1` on the Flipper Zero.
-   - Connect Pin 3 on the Chatpad to Pin 17 `C2` on the Flipper Zero.
+   - Connect Pin 3 on the Chatpad to Pin 16 `C2` on the Flipper Zero.
    - Connect Pin 4 on the Chatpad to Pin 18 `GND` on the Flipper Zero.
    - Pins 5, 6, and 7 on the Chatpad are not used (they are for audio).
+
+## Chatpad Setup
+
+Once you have installed the firmware using the [Quick Installation](#quick-installation) or [Firmware Overlay Installation](#firmware-overlay-installation) steps, you can connect the Chatpad to the Flipper Zero. Every time you restart the Flipper Zero you will need to reconnect the Chatpad.
+
+1. Connect the Chatpad to the Flipper Zero (Flipper GPIO pins 9, 15, 16, 18 -- see [Chatpad Hardware](#chatpad-hardware) for more details).
+2. Turn on the Flipper Zero.
+3. Click "OK" and then select the "Settings" option.
+4. Select the "Chatpad" option.
+5. Click on the "Chatpad" menu item. Click "OK" to turn on the chatpad.
+6. You should see "Chatpad is ON" and then "Chatpad is READY".
+7. Press a key on the Chatpad and you should see the key pressed on the Flipper Zero screen.
+
+You can set Macros in the Chatpad Config.
+
+1. Choose "Config" from the Chatpad menu.
+2. For the "Macro" option, choose the letter you would like to assign a macro to.
+3. Click "OK" and then type the text you would like to assign to the macro. (You can use the Chatpad to type the text.)
+4. Cick "Save"
+5. To use the macro, hold the "People" key (next to the green button on the chatpad) and then press the letter you assigned the macro to.
 
 ## Firmware Overlay Installation
 
