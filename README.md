@@ -129,145 +129,98 @@ You can set Macros in the Chatpad Config.
 
 The following steps will guide you through the process of installing the latest version of the firmware on your Flipper Zero. This process requires you to build the firmware from source. If you would like to install a prebuilt version of the firmware, please follow the instructions in the [Quick Installation](#quick-installation) section above.
 
-The following directions are for Windows users using a command prompt. If you are using a different operating system or using PowerShell, you will need to adjust the commands accordingly.
-
 Install prerequisites before proceeding:
 
    - Install [git](https://git-scm.com/downloads)
-   - Install [vscode](https://code.visualstudio.com/download)
    - NOTE: I have a YouTube video on setting up a [Windows development environment](https://youtu.be/gqovwRkn2xw) or [Ubuntu environment](https://youtu.be/PaqK1H9brZQ).
 
-Directions:
+The following directions are for **Windows users using a command prompt**. If you are using a different operating system or using PowerShell, you will need to adjust the commands accordingly. If you don't want to use the latest `dev` branch, you can replace `"dev"` with the branch or tag you would like to use. Please see [using non-dev branches or tags](#using-non-dev-branches-or-tags) below for more information.
 
-1. Open a command prompt and navigate to the directory where you would like to store the firmware and input files.
+Before proceeding, be sure to connect your Flipper Zero to your computer. Close qFlipper, lab.flipper.net, or any other application that may be using your Flipper Zero USB port!
+
+### Official firmware
 
     ```bash
     mkdir \repos
     cd \repos
-    ```
-
-2. Clone the repository for the firmware you would like to run on your Flipper Zero. The following repositories are available:
-
-    Official firmware:
-
-    ```bash
     git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git flipperzero-firmware
-    ```
-
-    Momentum firmware:
-
-    ```bash
-    git clone --recursive https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
-    ```
-
-    Unleashed firmware:
-
-    ```bash
-    git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
-    ```
-
-    RogueMaster firmware:
-
-    ```bash
-    git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
-    ```
-
-3. Clone this repository
-
-    ```bash
     git clone https://github.com/jamisonderek/flipper-zero-input.git
-    ```
-
-4. You should have now two directories: `flipperzero-firmware` and `flipper-zero-input`
-
-    ```
-    dir
-    ```
-   
-5. In the `flipper-zero-input` directory there is a `firmware-overlay` directory, which contains folders based on various firmware (like `ofw-1.1.2`).
-
-    ```
-    start .
-    ```
-
-6. WARNING: The firmware-overlays contains updated `text_input.c`, `rpc.c`, `rpc_storage.c` and `settings/applications.fam` files which were part of the original firmware. If these files have been updated in the firmware you are using, you will need to manually merge the changes. It is recommend you first sync to the version of the firmware used by the overlay before applying the overlay. In a later step you can advance to the latest version of the firmware.
-
-    Official firmware:
-
-    ```bash
     cd flipperzero-firmware
     git pull
     git checkout "1.1.2"
-    ```
-
-    Momentum firmware:
-    
-    ```bash
-    cd flipperzero-firmware
-    git pull
-    git checkout "mntm-008"
-    ```
-
-    Unleashed firmware:
-    
-    ```bash
-    cd flipperzero-firmware
-    git pull
-    git checkout "unlshd-079"
-    ```
-
-    RogueMaster firmware:
-    
-    ```bash
-    cd flipperzero-firmware
-    git pull
-    git checkout "RM1202-0837-0.420.0-6d10bad"
-    ```
-
-7. Copy the application folder in `firmware-overlay` directory over the application folder in `flipperzero-firmware` directory
-
-    Official firmware:
-
-    ```bash
     cd applications
     xcopy ..\..\flipper-zero-input\firmware-overlay\ofw-1.1.2\applications\*.* . /e /y
     cd ..
+    fbt vscode_dist
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+    git stash push -u
+    git checkout "dev"
+    git stash pop
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
     ```
 
-    Momentum firmware:
+### Momentum firmware
 
     ```bash
+    mkdir \repos
+    cd \repos
+    git clone --recursive https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
+    git clone https://github.com/jamisonderek/flipper-zero-input.git
+    cd flipperzero-firmware
+    git pull
+    git checkout "mntm-008"
     cd applications
     xcopy ..\..\flipper-zero-input\firmware-overlay\mntm-008\applications\*.* . /e /y
     cd ..
+    fbt vscode_dist
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+    git stash push -u
+    git checkout "dev"
+    git stash pop
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
     ```
 
-    Unleashed firmware:
+### Unleashed firmware
 
     ```bash
+    mkdir \repos
+    cd \repos
+    git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
+    cd flipperzero-firmware
+    git pull
+    git checkout "unlshd-079"
     cd applications
     xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e /y
     cd ..
+    fbt vscode_dist
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
+    git stash push -u
+    git checkout "dev"
+    git stash pop
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
     ```
 
-    RogueMaster firmware:
+### RogueMaster firmware
 
     ```bash
+    mkdir \repos
+    cd \repos
+    git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
+    git clone https://github.com/jamisonderek/flipper-zero-input.git
+    cd flipperzero-firmware
+    git pull
+    git checkout "RM1202-0837-0.420.0-6d10bad"
     cd applications
     xcopy ..\..\flipper-zero-input\firmware-overlay\rm1202-0837-0.420.0-6d10bad\applications\*.* . /e /y
     cd ..
+    git stash push -u
+    git checkout "dev"
+    git stash pop
+    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full                
     ```
 
-8. Connect your Flipper Zero to your computer and build & deploy the firmware
-
-    ```bash
-    fbt vscode_dist
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full 
-    ```
-
-9. Apply the changes to the latest firmware
-
-    First choose the branch or tag of the firmware you would like to use. The following branches and tags are available:
+### Using non-dev branches or tags
+NOTE: instead of `git checkout "dev"` you can replace `"dev"` with the branch or tag of the firmware you would like to use. The following branches and tags are available:
 
     Official firmware:
     - `dev`
@@ -289,16 +242,22 @@ Directions:
     - `420`
     - [tags](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tags), like `RM1202-0837-0.420.0-6d10bad`
 
-    The run the following command (replace "dev" with the branch or tag you would like to use):
+
+### Notes about the above scripts
+
+- You can replace `\repros` with any directory you would like to use.
 
     ```bash
-    git stash push -u
-    git checkout "dev"
-    git stash pop
+    mkdir \repos
+    cd \repos
     ```
 
-10. Connect your Flipper Zero to your computer and build & deploy the firmware
+- We recursively clone the firmware repo into a folder named `flipperzero-firmware`. You can choose a different name if you would like, but be sure to also update the other commands to use the new name.
 
-    ```bash
-    fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full 
-    ```
+- We clone the `flipper-zero-input` repo into a folder named `flipper-zero-input`. You can choose a different name if you would like, but be sure to also update the other commands to use the new name.
+
+- The firmware-overlays contains updated `text_input.c`, `rpc.c`, `rpc_storage.c` and `settings/applications.fam` files which were part of the original firmware. We sync our firmware repo to the version I was using when I made the change, that way we know those files ONLY contain the necessary modifications.
+
+- The overlays are slightly different between firmware, since they have different text_input.c implementations (everyone has a slightly different keyboard implementation).
+
+- Once we apply the overlay, we use `git stash push -u` to stash away our edits. We then checkout the new version of firmware and use `git stash pop` to apply our edits in the new code. This assumes that the two versions of the firmware are compatible with the changes we made. If they are not, you will need to manually apply the changes to the new firmware.
