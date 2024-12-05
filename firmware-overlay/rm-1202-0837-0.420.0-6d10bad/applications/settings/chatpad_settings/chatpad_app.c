@@ -46,6 +46,7 @@ typedef struct {
     Submenu* submenu; // The application menu
     TextInput* text_input; // The text input screen
     VariableItemList* variable_item_list_config; // The configuration screen
+    VariableItem* chatpad_enabled_item;
     View* view_chatpad; // The main screen
     Widget* widget_about; // The about screen
 
@@ -319,8 +320,10 @@ static void chatpad_view_chatpad_draw_callback(Canvas* canvas, void* model) {
 
     if(my_model->chatpad_enabled) {
         canvas_draw_str(canvas, 1, 20, "Chatpad is ON");
+        canvas_draw_str(canvas, 1, 50, "Press OK to turn off");
     } else {
         canvas_draw_str(canvas, 1, 20, "Chatpad is OFF");
+        canvas_draw_str(canvas, 1, 50, "Press OK to turn on");
     }
 
     switch(my_model->chatpad_status) {
@@ -465,6 +468,12 @@ static bool chatpad_view_chatpad_custom_event_callback(uint32_t event, void* con
             {
                 model->chatpad_enabled = !model->chatpad_enabled;
                 chatpad_device_enable(model->chatpad_enabled);
+                uint8_t setting_chatpad_enabled_index = model->chatpad_enabled ? 1 : 0;
+                variable_item_set_current_value_index(
+                    app->chatpad_enabled_item, setting_chatpad_enabled_index);
+                variable_item_set_current_value_text(
+                    app->chatpad_enabled_item,
+                    setting_chatpad_enabled_names[setting_chatpad_enabled_index]);
             },
             true);
         return true;
@@ -533,6 +542,7 @@ static ChatpadApp* chatpad_app_alloc() {
         COUNT_OF(setting_chatpad_enabled_names),
         chatpad_setting_chatpad_enabled_change,
         app);
+    app->chatpad_enabled_item = item;
     bool chatpad_enabled = chatpad_device_enabled();
     uint8_t setting_chatpad_enabled_index = chatpad_enabled ? 1 : 0;
     variable_item_set_current_value_index(item, setting_chatpad_enabled_index);
