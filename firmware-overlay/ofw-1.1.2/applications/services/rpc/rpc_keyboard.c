@@ -93,6 +93,15 @@ static void rpc_keyboard_publish(
     strncpy(rpc_keyboard->event.data.message, (const char*)bytes, buffer_size);
     rpc_keyboard->event.data.length = buffer_size;
     rpc_keyboard->event.data.message[rpc_keyboard->event.data.length] = '\0';
+    for(uint32_t i = 0; i < rpc_keyboard->event.data.length; i++) {
+        if(rpc_keyboard->event.data.message[i] == '\r' ||
+           rpc_keyboard->event.data.message[i] == '\n') {
+            rpc_keyboard->event.data.message[i] = '\r'; // text_input.c: #define ENTER_KEY '\r'
+            rpc_keyboard->event.data.length = i + 1;
+            rpc_keyboard->event.data.message[rpc_keyboard->event.data.length] = '\0';
+            break;
+        }
+    }
     rpc_keyboard->event.type = type;
     furi_mutex_release(rpc_keyboard->event.data.mutex);
 
