@@ -28,7 +28,6 @@ typedef struct {
     bool clear_default_text;
 
     FuriPubSubSubscription* keyboard_subscription;
-    bool invoke_callback;
 
     TextInputCallback callback;
     void* callback_context;
@@ -290,19 +289,6 @@ static void text_input_view_draw_callback(Canvas* canvas, void* _model) {
 
     model->cursor_pos = model->cursor_pos > text_length ? text_length : model->cursor_pos;
     size_t cursor_pos = model->cursor_pos;
-
-    if(model->invoke_callback) {
-        model->invoke_callback = false;
-        if(model->validator_callback &&
-           (!model->validator_callback(
-               model->text_buffer, model->validator_text, model->validator_callback_context))) {
-            model->validator_message_visible = true;
-        } else if(model->callback != 0) {
-            // We hijack the current thread to invoke the callback (we aren't doing a draw).
-            model->callback(model->callback_context);
-            return;
-        }
-    }
 
     canvas_clear(canvas);
     canvas_set_color(canvas, ColorBlack);
@@ -704,77 +690,6 @@ static bool text_input_view_ascii_callback(AsciiEvent* event, void* context) {
     return false;
 }
 
-static bool is_illegal_symbol(char symbol) {
-    switch(symbol) {
-    case '_':
-    case '<':
-    case '>':
-    case ':':
-    case '"':
-    case '/':
-    case '\\':
-    case '|':
-    case '?':
-    case '*':
-        return true;
-    default:
-        return false;
-    }
-}
-
-static void
-    text_input_keyboard_callback_line(TextInput* text_input, const RpcKeyboardEvent* event) {
-    with_view_model(
-        text_input->view,
-        TextInputModel * model,
-        {
-            if(model->text_buffer != NULL && model->text_buffer_size > 0) {
-                if(event->data.length > 0) {
-                    furi_mutex_acquire(event->data.mutex, FuriWaitForever);
-                    size_t len = event->data.length;
-                    if(len >= model->text_buffer_size) {
-                        len = model->text_buffer_size - 1;
-                    }
-
-                    bool newline = false;
-                    bool substitutions = false;
-                    size_t copy_index = 0;
-                    for(size_t i = 0; i < len; i++) {
-                        char ch = event->data.message[i];
-                        if((ch >= 0x20 && ch <= 0x7E) || ch == '\n' || ch == '\r') {
-                            if(model->illegal_symbols || !is_illegal_symbol(ch)) {
-                                model->text_buffer[copy_index++] = ch;
-                            } else {
-                                // Replace illegal symbols with '-'.
-                                model->text_buffer[copy_index++] = '-';
-                                substitutions = true;
-                            }
-                            if(ch == '\n' || ch == '\r') {
-                                newline = event->data.newline_enabled &&
-                                          copy_index >= model->minimum_length && !substitutions;
-                                break;
-                            }
-                        }
-                    }
-                    model->text_buffer[copy_index] = '\0';
-                    furi_mutex_release(event->data.mutex);
-                    FURI_LOG_D(
-                        "text_input", "copy: %d, %d, %s", len, copy_index, model->text_buffer);
-                    model->cursor_pos = len;
-
-                    // Set focus on Save
-                    model->selected_row = 2;
-                    model->selected_column = 9;
-                    model->selected_keyboard = 0;
-
-                    // Hijack the next draw to invoke the callback if newline is true.
-                    model->invoke_callback = newline;
-                }
-            }
-        },
-        true);
-}
-
 static void text_input_keyboard_callback(const void* message, void* context) {
     TextInput* text_input = context;
     const RpcKeyboardEvent* event = message;
@@ -783,9 +698,44 @@ static void text_input_keyboard_callback(const void* message, void* context) {
         return;
     }
 
+    furi_mutex_acquire(event->data.mutex, FuriWaitForever);
+
     switch(event->type) {
     case RpcKeyboardEventTypeTextEntered:
-        text_input_keyboard_callback_line(text_input, event);
+        with_view_model(
+            text_input->view,
+            TextInputModel * model,
+            {
+                // Erase previous text
+                model->text_buffer[0] = 0;
+                model->cursor_pos = 0;
+                model->clear_default_text = false;
+            },
+            false);
+        FURI_LOG_I(
+            "text_input",
+            "text: %s len: %d",
+            event->data.message ? event->data.message : "NULL",
+            event->data.length);
+        for(size_t i = 0; i < event->data.length; i++) {
+            text_input_view_ascii_callback(
+                &(AsciiEvent){
+                    .value = event->data.message[i],
+                },
+                text_input);
+        }
+        if(event->data.message[event->data.length - 1] != ENTER_KEY) {
+            with_view_model(
+                text_input->view,
+                TextInputModel * model,
+                {
+                    // Set focus on Save
+                    model->selected_row = 2;
+                    model->selected_column = 9;
+                    model->selected_keyboard = 0;
+                },
+                false);
+        }
         break;
     case RpcKeyboardEventTypeCharEntered:
         char ch = event->data.message[0];
@@ -797,8 +747,7 @@ static void text_input_keyboard_callback(const void* message, void* context) {
             text_input);
         break;
     case RpcKeyboardEventTypeMacroEntered:
-        furi_mutex_acquire(event->data.mutex, FuriWaitForever);
-        FURI_LOG_I("text_input", "macro: %s", event->data.message);
+        FURI_LOG_I("text_input", "macro: %s", event->data.message ? event->data.message : "NULL");
         for(size_t i = 0; i < event->data.length; i++) {
             text_input_view_ascii_callback(
                 &(AsciiEvent){
@@ -806,9 +755,10 @@ static void text_input_keyboard_callback(const void* message, void* context) {
                 },
                 text_input);
         }
-        furi_mutex_release(event->data.mutex);
         break;
     }
+
+    furi_mutex_release(event->data.mutex);
 }
 
 static void text_input_view_enter_callback(void* context) {
