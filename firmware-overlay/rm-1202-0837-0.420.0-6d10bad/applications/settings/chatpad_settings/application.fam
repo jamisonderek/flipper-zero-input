@@ -1,0 +1,9 @@
+App(
+    appid="chatpad_settings",
+    name="Chatpad",
+    apptype=FlipperAppType.EXTSETTINGS,
+    entry_point="chatpad_app",
+    requires=["gui", "rpc_start"],
+    stack_size=2 * 1024,
+    order=85,
+)
