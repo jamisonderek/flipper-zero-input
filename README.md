@@ -91,7 +91,7 @@ cd flipperzero-firmware
 git pull
 git checkout "unlshd-079"
 cd applications
-xcopy ..\..\flipper-zero-input\firmware-overlay\unlshd-079\applications\*.* . /e /y
+xcopy ..\..\flipper-zero-input\firmware-overlay\unl-079\applications\*.* . /e /y
 cd ..
 git stash push -u
 git checkout "dev"
