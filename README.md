@@ -169,28 +169,23 @@ The easiest way to input text on the Flipper Zero is to use a Bluetooth on your 
 NOTE: if you switched firmware the pairing may be lost, so you may need to forget the device and add it again.
 
 Once you have the mobile app working, the following steps will send text to the text input to the Flipper Zero.
-1. Open the mobile app and connect to your Flipper Zero.
-2. Click on the "Options" button (it's on the first tab).
-3. Click on the "File Manager" button.
-4. You should be on the SD card folder (if not, click on the `/ext` folder).
-5. If this is your first time using the app:
-
-   - Click on the "+" button in the top right.
-   - Then click on the "New File" button.
-   - Then name the file `input-line.txt`
-
-6. Open the "input-line.txt" file
+1. On your Flipper, go to `Settings`/`Chatpad`. This will create a "input-line.txt" file on the SD card. You can exit the settings, if you don't actually have a chatpad.
+2. Open the [mobile app](https://docs.flipper.net/mobile-app) and connect to your Flipper Zero.
+3. Click on the "Options" (it's on the first tab).
+4. Click on the "File Manager".
+5. You should be on the SD card folder (if not, click on the `/ext` folder).
+6. Open the "input-line.txt" file (this file was created from step 1 above.)
 7. Type a line of text you would like to send to the Flipper Zero.
-8. On your Flipper make sure you are in the text input screen.
-9. Click on the "Save" (or checkmark) button in the top right.
+   - NOTE: If you press enter on the phone, only the first line will used (and then a "save" will be submitted)
+8. On your Flipper make sure you are in the text input screen (the one that shows a keyboard).
+9. On your phone, click on the "Save" (or checkmark) button at the top right.
 10. The text will be sent to the Flipper Zero and you should see it in the text input!
-   
-   - On iOS you will still be in the "input-line.txt" file, so you can edit the text and click "Save" again to send the new text to the Flipper Zero.
-   - On Android you will need to click on the "input-line.txt" file again, choose "Edit", and then click "Save" to send the new text to the Flipper Zero.
 
 In the future, it would be great to have a more seamless integration with the Flipper Zero mobile app. You can find the existing apps here:
    - [https://github.com/flipperdevices/Flipper-Android-App](https://github.com/flipperdevices/Flipper-Android-App)
    - [https://github.com/flipperdevices/Flipper-iOS-App](https://github.com/flipperdevices/Flipper-Android-App)
+
+Let me know if you want to collaborate on a mobile app improvement!  (@CodeAllNight on Discord.)
 
 ## Chatpad Hardware
 
@@ -243,3 +238,8 @@ You can set Macros in the Chatpad Config.
 4. Cick "Save"
 5. To use the macro, hold the "People" key (next to the green button on the chatpad) and then press the letter you assigned the macro to.
 
+## Support
+
+If you have need help, I am here for you. Also, I would love your feedback on Flipper Zero input devices!  The best way to get support is tag me **(@CodeAllNight)** on Discord in any of the Flipper Zero firmware servers.
+
+If you want to support my work, you can donate via [https://ko-fi.com/codeallnight](https://ko-fi.com/codeallnight) or you can [buy a FlipBoard](https://www.tindie.com/products/makeithackin/flipboard-macropad-keyboard-for-flipper-zero/) from MakeItHackin with software & tutorials from me (@CodeAllNight).
