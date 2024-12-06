@@ -39,6 +39,7 @@ mkdir \repos
 cd \repos
 rd /s /q flipperzero-firmware 2>nul
 git clone --recursive -j 8 https://github.com/flipperdevices/flipperzero-firmware.git flipperzero-firmware
+rd /s /q flipper-zero-input 2>nul
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
@@ -61,6 +62,7 @@ mkdir \repos
 cd \repos
 rd /s /q flipperzero-firmware 2>nul
 git clone --recursive -j 8 https://github.com/Next-Flip/Momentum-Firmware.git flipperzero-firmware
+rd /s /q flipper-zero-input 2>nul
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
@@ -83,6 +85,7 @@ mkdir \repos
 cd \repos
 rd /s /q flipperzero-firmware 2>nul
 git clone --recursive -j 8 https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
+rd /s /q flipper-zero-input 2>nul
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
@@ -105,6 +108,7 @@ mkdir \repos
 cd \repos
 rd /s /q flipperzero-firmware 2>nul
 git clone --recursive -j 8 https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git flipperzero-firmware
+rd /s /q flipper-zero-input 2>nul
 git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
