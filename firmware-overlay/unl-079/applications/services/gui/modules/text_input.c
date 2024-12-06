@@ -23,7 +23,6 @@ typedef struct {
     bool clear_default_text;
 
     FuriPubSubSubscription* keyboard_subscription;
-    bool invoke_callback;
 
     bool cursor_select;
     size_t cursor_pos;
@@ -169,19 +168,6 @@ static void text_input_view_draw_callback(Canvas* canvas, void* _model) {
     uint8_t text_length = model->text_buffer ? strlen(model->text_buffer) : 0;
     uint8_t needed_string_width = canvas_width(canvas) - 8;
     uint8_t start_pos = 4;
-
-    if(model->invoke_callback) {
-        model->invoke_callback = false;
-        if(model->validator_callback &&
-           (!model->validator_callback(
-               model->text_buffer, model->validator_text, model->validator_callback_context))) {
-            model->validator_message_visible = true;
-        } else if(model->callback != 0) {
-            // We hijack the current thread to invoke the callback (we aren't doing a draw).
-            model->callback(model->callback_context);
-            return;
-        }
-    }
 
     model->cursor_pos = model->cursor_pos > text_length ? text_length : model->cursor_pos;
     size_t cursor_pos = model->cursor_pos;
@@ -506,10 +492,26 @@ static bool text_input_view_input_callback(InputEvent* event, void* context) {
 
 static void
     text_input_keyboard_callback_line(TextInput* text_input, const RpcKeyboardEvent* event) {
+    InputEvent ok_press_event = {
+        .type = InputTypePress,
+        .key = InputKeyOk,
+        .sequence_source = INPUT_SEQUENCE_SOURCE_SOFTWARE,
+    };
+    InputEvent ok_release_event = {
+        .type = InputTypeRelease,
+        .key = InputKeyOk,
+        .sequence_source = INPUT_SEQUENCE_SOURCE_SOFTWARE,
+    };
+    InputEvent ok_short_event = {
+        .type = InputTypeShort,
+        .key = InputKeyOk,
+        .sequence_source = INPUT_SEQUENCE_SOURCE_SOFTWARE,
+    };
     with_view_model(
         text_input->view,
         TextInputModel * model,
         {
+            bool newline = false;
             if(model->text_buffer != NULL && model->text_buffer_size > 0) {
                 if(event->data.length > 0) {
                     furi_mutex_acquire(event->data.mutex, FuriWaitForever);
@@ -518,18 +520,17 @@ static void
                         len = model->text_buffer_size - 1;
                     }
 
-                    bool newline = false;
                     bool substitutions = false;
                     size_t copy_index = 0;
                     for(size_t i = 0; i < len; i++) {
                         char ch = event->data.message[i];
                         if((ch >= 0x20 && ch <= 0x7E) || ch == '\n' || ch == '\r') {
-                            model->text_buffer[copy_index++] = ch;
                             if(ch == '\n' || ch == '\r') {
                                 newline = event->data.newline_enabled &&
                                           copy_index >= model->minimum_length && !substitutions;
                                 break;
                             }
+                            model->text_buffer[copy_index++] = ch;
                         }
                     }
                     model->text_buffer[copy_index] = '\0';
@@ -541,10 +542,14 @@ static void
                     // Set focus on Save
                     model->selected_row = 2;
                     model->selected_column = 8;
-
-                    // Hijack the next draw to invoke the callback if newline is true.
-                    model->invoke_callback = newline;
                 }
+            }
+            if(newline) {
+                FuriPubSub* input_events = furi_record_open(RECORD_INPUT_EVENTS);
+                furi_pubsub_publish(input_events, &ok_press_event);
+                furi_pubsub_publish(input_events, &ok_short_event);
+                furi_pubsub_publish(input_events, &ok_release_event);
+                furi_record_close(RECORD_INPUT_EVENTS);
             }
         },
         true);
