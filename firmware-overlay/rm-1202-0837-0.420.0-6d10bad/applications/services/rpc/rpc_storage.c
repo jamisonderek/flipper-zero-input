@@ -448,6 +448,15 @@ static void rpc_system_storage_write_process(const PB_Main* request, void* conte
                 (uint8_t*)request->content.storage_write_request.file.data->bytes,
                 request->content.storage_write_request.file.data->size);
             furi_record_close(RECORD_RPC_KEYBOARD);
+
+            rpc_storage->current_command_id = request->command_id;
+            rpc_storage->state = RpcStorageStateWriting;
+
+            rpc_send_and_release_empty(
+                session, rpc_storage->current_command_id, PB_CommandStatus_OK);
+            rpc_storage->state = RpcStorageStateIdle;
+            rpc_system_storage_reset_state(rpc_storage, session, false);
+            return;
         }
     }
 
