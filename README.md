@@ -83,6 +83,7 @@ mkdir \repos
 cd \repos
 rd /s /q flipperzero-firmware 2>nul
 git clone --recursive -j 8 https://github.com/DarkFlippers/unleashed-firmware.git flipperzero-firmware
+git clone https://github.com/jamisonderek/flipper-zero-input.git
 cd flipperzero-firmware
 git pull
 git checkout "unlshd-079"
