@@ -690,6 +690,16 @@ static bool text_input_view_ascii_callback(AsciiEvent* event, void* context) {
     return false;
 }
 
+static void text_input_send_ascii(TextInput* text_input, uint8_t key) {
+    UNUSED(text_input);
+    AsciiEvent event = {
+        .value = key == (uint8_t)'\n' ? ENTER_KEY : key,
+    };
+    FuriPubSub* ascii_events = furi_record_open(RECORD_ASCII_EVENTS);
+    furi_pubsub_publish(ascii_events, &event);
+    furi_record_close(RECORD_ASCII_EVENTS);
+}
+
 static void text_input_keyboard_callback(const void* message, void* context) {
     TextInput* text_input = context;
     const RpcKeyboardEvent* event = message;
@@ -718,11 +728,7 @@ static void text_input_keyboard_callback(const void* message, void* context) {
             event->data.message ? event->data.message : "NULL",
             event->data.length);
         for(size_t i = 0; i < event->data.length; i++) {
-            text_input_view_ascii_callback(
-                &(AsciiEvent){
-                    .value = event->data.message[i],
-                },
-                text_input);
+            text_input_send_ascii(text_input, event->data.message[i]);
         }
         if(event->data.message[event->data.length - 1] != ENTER_KEY) {
             with_view_model(
@@ -740,20 +746,12 @@ static void text_input_keyboard_callback(const void* message, void* context) {
     case RpcKeyboardEventTypeCharEntered:
         char ch = event->data.message[0];
         FURI_LOG_I("text_input", "char: %c", ch);
-        text_input_view_ascii_callback(
-            &(AsciiEvent){
-                .value = event->data.message[0],
-            },
-            text_input);
+        text_input_send_ascii(text_input, event->data.message[0]);
         break;
     case RpcKeyboardEventTypeMacroEntered:
         FURI_LOG_I("text_input", "macro: %s", event->data.message ? event->data.message : "NULL");
         for(size_t i = 0; i < event->data.length; i++) {
-            text_input_view_ascii_callback(
-                &(AsciiEvent){
-                    .value = event->data.message[i],
-                },
-                text_input);
+            text_input_send_ascii(text_input, event->data.message[i]);
         }
         break;
     }
