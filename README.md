@@ -114,7 +114,7 @@ cd flipperzero-firmware
 git pull
 git checkout "RM1202-0837-0.420.0-6d10bad"
 cd applications
-xcopy ..\..\flipper-zero-input\firmware-overlay\rm1202-0837-0.420.0-6d10bad\applications\*.* . /e /y
+xcopy ..\..\flipper-zero-input\firmware-overlay\rm-1202-0837-0.420.0-6d10bad\applications\*.* . /e /y
 cd ..
 git stash push -u
 git checkout "dev"
