@@ -600,9 +600,16 @@ static void text_input_keyboard_type_key(TextInput* text_input, char selected) {
                 if(selected == RPC_KEYBOARD_KEY_LEFT || selected == RPC_KEYBOARD_KEY_RIGHT) {
                     // TODO: Handle cursor movement
                 } else if(text_length < (model->text_buffer_size - 1)) {
-                    model->text_buffer[text_length] = selected;
-                    model->text_buffer[text_length + 1] = 0;
-                    model->cursor_pos = text_length + 1;
+                    if(model->clear_default_text) {
+                        model->text_buffer[0] = selected;
+                        model->text_buffer[1] = '\0';
+                        model->cursor_pos = 1;
+                    } else {
+                        char* move = model->text_buffer + model->cursor_pos;
+                        memmove(move + 1, move, strlen(move) + 1);
+                        model->text_buffer[model->cursor_pos] = selected;
+                        model->cursor_pos++;
+                    }
                 }
             }
             model->clear_default_text = false;
