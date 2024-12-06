@@ -583,7 +583,7 @@ static ChatpadApp* chatpad_app_alloc() {
         0,
         128,
         64,
-        "Xbox 360 Chatpad!\nauthor: @codeallnight\nhttps://discord.com/invite/NsjCvqwPAd\nhttps://youtube.com/@MrDerekJamison");
+        "Xbox 360 Chatpad &\nmobile phone keyboard!\nauthor: @codeallnight\nhttps://github.com/jamisonderek/flipper-zero-input\nhttps://youtube.com/@MrDerekJamison");
     view_set_previous_callback(
         widget_get_view(app->widget_about), chatpad_navigation_submenu_callback);
     view_dispatcher_add_view(
@@ -594,6 +594,15 @@ static ChatpadApp* chatpad_app_alloc() {
 #ifdef BACKLIGHT_ON
     notification_message(app->notifications, &sequence_display_backlight_enforce_on);
 #endif
+
+    Storage* storage = furi_record_open(RECORD_STORAGE);
+    if(storage) {
+        File* file = storage_file_alloc(storage);
+        storage_file_open(file, "/ext/input-line.txt", FSAM_WRITE, FSOM_OPEN_ALWAYS);
+        storage_file_close(file);
+        storage_file_free(file);
+    }
+    furi_record_close(RECORD_STORAGE);
 
     return app;
 }
