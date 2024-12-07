@@ -286,7 +286,7 @@ static void chatpad_setting_item_clicked(void* context, uint32_t index) {
         furi_record_close(RECORD_RPC_KEYBOARD);
 
         // Configure the text input.  When user enters text and clicks OK, chatpad_setting_text_updated be called.
-        bool clear_previous_text = false;
+        bool clear_previous_text = true;
         text_input_set_result_callback(
             app->text_input,
             chatpad_setting_macro_updated,
