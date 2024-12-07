@@ -497,6 +497,21 @@ static void
 }
 
 static void text_input_keyboard_type_key(TextInput* text_input, char selected) {
+    InputEvent ok_press_event = {
+        .type = InputTypePress,
+        .key = InputKeyOk,
+        .sequence_source = INPUT_SEQUENCE_SOURCE_SOFTWARE,
+    };
+    InputEvent ok_release_event = {
+        .type = InputTypeRelease,
+        .key = InputKeyOk,
+        .sequence_source = INPUT_SEQUENCE_SOURCE_SOFTWARE,
+    };
+    InputEvent ok_short_event = {
+        .type = InputTypeShort,
+        .key = InputKeyOk,
+        .sequence_source = INPUT_SEQUENCE_SOURCE_SOFTWARE,
+    };
     with_view_model(
         text_input->view,
         TextInputModel * model,
@@ -523,15 +538,14 @@ static void text_input_keyboard_type_key(TextInput* text_input, char selected) {
             }
 
             if(selected == ENTER_KEY) {
-                if(model->validator_callback && (!model->validator_callback(
-                                                    model->text_buffer,
-                                                    model->validator_text,
-                                                    model->validator_callback_context))) {
-                    model->validator_message_visible = true;
-                    furi_timer_start(text_input->timer, furi_kernel_get_tick_frequency() * 4);
-                } else if(model->callback != 0 && text_length >= model->minimum_length) {
-                    model->callback(model->callback_context);
-                }
+                // Set focus on Save
+                model->selected_row = 2;
+                model->selected_column = 8;
+                FuriPubSub* input_events = furi_record_open(RECORD_INPUT_EVENTS);
+                furi_pubsub_publish(input_events, &ok_press_event);
+                furi_pubsub_publish(input_events, &ok_short_event);
+                furi_pubsub_publish(input_events, &ok_release_event);
+                furi_record_close(RECORD_INPUT_EVENTS);
             } else if(selected == BACKSPACE_KEY) {
                 text_input_backspace_cb(model);
             } else {
